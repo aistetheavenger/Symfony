@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+
+    <label for="name">Vardas: </label>
+    <input type="text" id="name"/>
+    <span id="nameValidator" data-path="{{ path('validatePerson', {'element': 'name'}) }}"></span>
+    <br>
+
+    <label for="team">Komanda: </label>
+    <input type="text" id="team"/>
+    <span id="teamValidator" data-path="{{ path('validateTeam', {'element': 'name'}) }}"></span>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('build/js/validation.js') }}"></script>
+    {{ parent() }}
+{% endblock %}

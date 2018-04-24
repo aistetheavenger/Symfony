@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+    <h1 class="display-5">Studentai</h1>
+    <ul class="list-group">
+    {% for teams, team in data %}
+        {% for member in team.members %}
+        <li class="list-group-item">
+            <a href="{{ path('akademija') }}?utm_sourse=akademija&utm_campaign={{ team.mentor }}&utm_term={{ member }}&utm_content={{ teams }}">{{ member }}</a>
+        </li>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+{% endblock %}
+
