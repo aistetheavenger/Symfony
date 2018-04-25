@@ -6,12 +6,12 @@
 
     <label for="name">Vardas: </label>
     <input type="text" id="name"/>
-    <span id="nameValidator" data-path="{{ path('validatePerson', {'element': 'name'}) }}"></span>
+    <span id="nameValidator" data-path="{{ path('validate', {'element': 'name'}) }}"></span>
     <br>
 
     <label for="team">Komanda: </label>
     <input type="text" id="team"/>
-    <span id="teamValidator" data-path="{{ path('validateTeam', {'element': 'name'}) }}"></span>
+    <span id="teamValidator" data-path="{{ path('validate', {'element': 'team'}) }}"></span>
 
 {% endblock %}
 
