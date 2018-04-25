@@ -8,7 +8,7 @@
     {% for teams, team in data %}
         {% for member in team.members %}
         <li class="list-group-item">
-            <a href="{{ path('akademija') }}?utm_sourse=akademija&utm_campaign={{ team.mentor }}&utm_term={{ member }}&utm_content={{ teams }}">{{ member }}</a>
+            <a href="{{ path('akademija') }}?utm_sourse=akademija&utm_campaign={{ team.mentor|url_encode }}&utm_term={{ member|url_encode }}&utm_content={{ teams|url_encode }}">{{ member }}</a>
         </li>
         {% endfor %}
     {% endfor %}
