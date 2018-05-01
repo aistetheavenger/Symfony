@@ -19,38 +19,52 @@ class PeopleController extends Controller
             'controller_name' => 'PeopleController',
         ]);
     }
+
     /**
-     * @Route("/validatePerson/{element}", name="validatePerson")
+     * @Route("/validate/{element}", name="validate")
      * @Method({"POST"})
      */
-    public function validateStudent(Data $data, Request $request, $element)
+    public function validate(Data $data, Request $request, $element)
     {
         try {
             $input = json_decode($request->getContent(), true)['input'];
         } catch (\Exception $e) {
+
             return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
         }
+        $students = $data->getStudents();
+        $teams = $data->getTeams();
         switch ($element) {
             case 'name':
-                return new JsonResponse(['valid' => in_array(strtolower($input), $data->getStudents())]);
+                return new JsonResponse(['valid' => in_array(strtolower($input), $students)]);
+            case 'team':
+                return new JsonResponse(['valid' => in_array(strtolower($input), $teams)]);
         }
         return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
     }
-    /**
-     * @Route("/validateTeam/{element}", name="validateTeam")
-     * @Method({"POST"})
-     */
-    public function validateTeam(Data $data, Request $request, $element)
+
+    public function getStudents()
     {
-        try {
-            $input = json_decode($request->getContent(), true)['input'];
-        } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
+        $students = [];
+        $storage = json_decode($this->getContent(), true);
+        foreach ($storage as $teamData) {
+            foreach ($teamData['members'] as $student) {
+                $students[] = strtolower($student);
+            }
         }
-        switch ($element) {
-            case 'name':
-                return new JsonResponse(['valid' => in_array(strtolower($input), $data->getTeams())]);
-        }
-        return new JsonResponse(['error' => 'Invalid method'], Response::HTTP_BAD_REQUEST);
+        return $students;
     }
+
+    public function getTeams()
+    {
+        $teams = [];
+        $storage = json_decode($this->getContent(), true);
+        foreach ($storage as $teamData => $teams) {
+            $teams[] = strtolower($teamData);
+
+        }
+        return $teams;
+    }
+
 }
+
