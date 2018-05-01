@@ -45,15 +45,4 @@ class SeoController extends Controller
                 'data' => $data
             ]);
     }
-    /**
-     * @Route("/tikrinimas", name="tikrinimas")
-     */
-    public function autocomplete(Request $request)
-    {
-
-
-        return $this->render('seo/scores.html.twig');
-    }
-
-
 }
